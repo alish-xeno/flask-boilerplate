@@ -12,6 +12,6 @@ class Config(object):
 
 
 class DevConfig(object):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABSE_URL', 'postgresql://postgres:secret@localhost:5432/boilerdb')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'postgresql://postgres:secret@localhost:5432/boilerdb')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = True

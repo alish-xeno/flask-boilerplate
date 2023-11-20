@@ -24,7 +24,7 @@ def store(username, email, password):
 
 
 def show(user_id):
-    user = User.query.get(user_id)
+    user = User.query.filter_by(id=user_id).first()
     if not user:
         return {'message': 'User not found'}, 404
 

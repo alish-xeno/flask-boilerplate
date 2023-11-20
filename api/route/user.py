@@ -1,29 +1,31 @@
 from flask import Blueprint, request
+from api.utils.auth import token_required
 
 from api.service import user as user_service
 
-user = Blueprint(
+user_route = Blueprint(
     'user',
     __name__,
     url_prefix='/api'
 )
 
 
-@user.route('/users', methods=['GET'])
+@user_route.route('/users', methods=['GET'])
 def list():
     users = user_service.index()
 
     return users
 
 
-@user.route('/users/<int:user_id>', methods=['GET'])
-def get(user_id):
+@user_route.route('/users/<int:user_id>', methods=['GET'])
+@token_required
+def get(current_user, user_id):
     user = user_service.show(user_id)
-
     return user
 
 
-@user.route('/users', methods=['POST'])
+
+@user_route.route('/users', methods=['POST'])
 def create():
     user = user_service.store(
         username=request.json['username'],
@@ -34,7 +36,7 @@ def create():
     return user
 
 
-@user.route('/users/<int:user_id>', methods=['PUT'])
+@user_route.route('/users/<int:user_id>', methods=['PUT'])
 def edit(user_id):
     user = user_service.update(
         user_id=user_id,
@@ -45,7 +47,7 @@ def edit(user_id):
     return user
 
 
-@user.route('/users/<int:user_id>', methods=['DELETE'])
+@user_route.route('/users/<int:user_id>', methods=['DELETE'])
 def delete(user_id):
     user = user_service.destroy(user_id)
 

@@ -1,8 +1,8 @@
 from flask import Blueprint
 
-general = Blueprint('general', __name__)
+general_route = Blueprint('general', __name__)
 
 
-@general.route('/', methods=['GET'])
+@general_route.route('/', methods=['GET'])
 def hello():
     return 'Hello, Flask!'
